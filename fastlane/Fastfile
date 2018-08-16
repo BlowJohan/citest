@@ -1,0 +1,18 @@
+default_platform :ios
+
+platform :ios do
+  desc "Building ios app"
+  before_all do
+    setup_circle_ci
+  end
+
+  lane :enterprise do
+    desc "Enterprise build"
+    match(
+      readonly: true,
+      type: "enterprise",
+      git_url: "git@github.com:ruintterra/ios-certificates.git"
+    )
+    gym(export_method: "enterprise")
+  end
+end

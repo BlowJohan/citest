@@ -1,0 +1,46 @@
+version: 2
+jobs:
+  build:
+    macos:
+      xcode: "9.4.1"
+    working_directory: /Users/distiller/project
+    environment:
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: enterprise
+    shell: /bin/bash --login -o pipefail
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - gem-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gem-{{ .Branch }}-
+            - gem-
+      - run: bundle install --path vendor/bundle
+      - save_cache:
+          key: gem-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ./vendor
+      - run:
+          name: Set MDT environment variables
+          command: |
+            mkdir -p output
+            if [ $CIRCLE_BRANCH == 'master' ]
+            then
+              echo 'export MDT_APP_NAME="prod"' >> $BASH_ENV
+            else
+              echo 'export MDT_APP_NAME=$CIRCLE_BRANCH' >> $BASH_ENV
+            fi
+            echo 'export MDT_IOS_FILE="./output/SkyScout-$MDT_APP_NAME.ipa"' >> $BASH_ENV
+            source $BASH_ENV
+      - run:
+          name: Build ios
+          command: bundle exec fastlane ios $FASTLANE_LANE
+      - run:
+          name: Rename ios artifact
+          command: mv ./output/SkyScout.ipa $MDT_IOS_FILE
+      - run: pip install requests
+      - run:
+          name: Deploy ios artifact
+          command: curl -Ls https://mdt.intterra.ru/api/in/v1/artifacts/$MDT_IOS_NATIVE_API_KEY/deploy | python - ADD fullParameters -version $MDT_APP_VERSION -branch master -name $MDT_APP_NAME -file $MDT_IOS_FILE
+      - store_artifacts:
+          path: ./output

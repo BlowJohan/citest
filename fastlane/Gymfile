@@ -1,0 +1,3 @@
+scheme("SkyScout")
+clean(true)
+output_directory("./output")

@@ -1,0 +1,4 @@
+git_url("git@github.com:ruintterra/ios-certificates.git")
+type("enterprise") # The default type, can be: appstore, adhoc, enterprise or development
+app_identifier(["ru.intterra.SkyScout", "ru.intterra.SkyScout.dev", "ru.intterra.SkyScout.stage"])
+username("info@intterra.ru") # Your Apple Developer Portal username

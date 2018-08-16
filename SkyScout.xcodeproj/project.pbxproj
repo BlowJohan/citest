@@ -96,6 +96,8 @@
 				TargetAttributes = {
 					3086244B2125A92B0040E517 = {
 						CreatedOnToolsVersion = 9.4.1;
+						DevelopmentTeam = 39UJM5S94Q;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -280,6 +282,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 39UJM5S94Q;
 				INFOPLIST_FILE = SkyScout/Info.plist;
@@ -289,6 +292,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.intterra.SkyScout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -298,7 +302,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 39UJM5S94Q;
 				INFOPLIST_FILE = SkyScout/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -307,6 +312,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.intterra.SkyScout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "a581dd8e-47fa-482b-b2f3-729729535f82";
+				PROVISIONING_PROFILE_SPECIFIER = "match InHouse ru.intterra.SkyScout";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
